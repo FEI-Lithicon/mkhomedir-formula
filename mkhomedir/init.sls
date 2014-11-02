@@ -1,6 +1,6 @@
 {% set my_umask = '0770' %}
 mkhomedir:
-{% if grains['os'] == 'Debian' %}
+{% if grains['os_family'] == 'Debian' %}
   file.blockreplace:
     - name: /etc/pam.d/common-session
     - marker_start: '# START saltstack managed zone : -DO-NOT-EDIT-'
