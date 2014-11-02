@@ -1,4 +1,4 @@
-{{ set my_umask = 0077 }}
+{% set my_umask = 0077 %}
 mkhomedir:
 {% if grains['os'] == 'Debian' %}
   file.blockreplace:
