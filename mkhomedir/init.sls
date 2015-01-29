@@ -11,10 +11,11 @@ mkhomedir:
     - backup: '.saltbackup'
 
 {% elif grains['os_family'] == 'RedHat' %}
-  oddjob_mkhomedir:
-    pkg.installed
-  
+  pkg.installed:
+    - name: oddjob-mkhomedir
   cmd.run:
-    - name: /sbin/authconfig --enablemkhomedir --update
+    - name: authconfig --enablemkhomedir --update
+    - require:
+      - pkg: oddjob-mkhomedir
 {% endif %}
 
