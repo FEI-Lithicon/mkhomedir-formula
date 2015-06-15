@@ -13,9 +13,20 @@ mkhomedir:
 {% elif grains['os_family'] == 'RedHat' %}
   pkg.installed:
     - name: oddjob-mkhomedir
+
+{% if salt['grains.get']('mkhomedir_authconfig') != True %}
+mkhomedir-authconfig:
   cmd.run:
     - name: authconfig --enablemkhomedir --update
     - require:
       - pkg: oddjob-mkhomedir
+  
+  grains.present:
+    - name: mkhomedir_authconfig
+    - value: True
+    - require:
+      - cmd: mkhomedir-authconfig
+{% endif %}
+
 {% endif %}
 
